@@ -5,6 +5,7 @@ import path from "path";
 
 import logger from "./logger";
 
+
 export const clientRouter = (apiRoot) => {
 	const staticDir = path.join(__dirname, "..", "static");
 	const router = Router();
