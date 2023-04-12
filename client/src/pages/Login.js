@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
+// import { useHistory } from "react-router-dom";
+// import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
 const Login= () => {
-	const history = useHistory();
+	// const history = useHistory();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
 		try {
-			const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+			// const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
 			history.push("/");
 		} catch (error) {
 			console.error(error);
