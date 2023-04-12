@@ -11,7 +11,7 @@ import Dashboard from "./pages/Dashboard";
 
 const App = () => (
 	<div>
-		<p>BLAH BLAH BLAH!</p>
+		<p>BLAH BLAH BLAZEE!</p>
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/about/this/site" element={<About />} />
