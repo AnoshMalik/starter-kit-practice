@@ -44,5 +44,5 @@ function SpeechSynthesis() {
 		</div>
 	);
 }
-
+// Added comment
 export default SpeechSynthesis;
