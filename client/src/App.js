@@ -12,7 +12,6 @@ import SpeechSynthesis from "./pages/SpeechSynthesis";
 
 const App = () => (
 	<div>
-		<p>BLAH BLAH BLAZEE!</p>
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/about/this/site" element={<About />} />
