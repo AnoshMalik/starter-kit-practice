@@ -1,12 +1,19 @@
-name: Lighthouse
+name: Lighthouse Check
 on: [pull_request]
 
 jobs:
-  lighthouse:
+  lighthouse-check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Lighthouse
+    - run: mkdir /tmp/artifacts
+    - name: Run Lighthouse
       uses: foo-software/lighthouse-check-action@master
       with:
-        urls: 'https://www.foo.software,https://www.google.com'
+        outputDirectory: /tmp/artifacts
+        urls: 'https://www.foo.software,https://www.foo.software/contact'
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: Lighthouse reports
+        path: /tmp/artifacts
