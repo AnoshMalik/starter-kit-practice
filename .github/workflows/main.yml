@@ -1,4 +1,4 @@
-name: Lighthouse Check
+name: Lighthouse Lad
 on: [pull_request]
 
 jobs:
