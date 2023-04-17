@@ -10,6 +10,8 @@ import Dropdown from "./pages/Dropdown";
 import Dashboard from "./pages/Dashboard";
 import SpeechSynthesis from "./pages/SpeechSynthesis";
 import SpeechRecognitions from "./pages/SpeechRecognitions";
+import Grammarly from "./pages/Grammarly";
+
 
 const App = () => (
 	<div>
@@ -24,6 +26,7 @@ const App = () => (
 			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/speak" element={<SpeechSynthesis />} />
 			<Route path="/say" element={<SpeechRecognitions />} />
+			<Route path="/grammar" element={<Grammarly />} />
 		</Routes>
 	</div>
 );
