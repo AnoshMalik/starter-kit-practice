@@ -9,6 +9,7 @@ import Sidebar from "./pages/Sidebar";
 import Dropdown from "./pages/Dropdown";
 import Dashboard from "./pages/Dashboard";
 import SpeechSynthesis from "./pages/SpeechSynthesis";
+import SpeechRecognitions from "./pages/SpeechRecognitions";
 
 const App = () => (
 	<div>
@@ -21,7 +22,8 @@ const App = () => (
 			<Route path="/sidebar" element={<Sidebar />} />
 			<Route path="/dropdown" element={<Dropdown />} />
 			<Route path="/dashboard" element={<Dashboard />} />
-			<Route path="/speech" element={<SpeechSynthesis />} />
+			<Route path="/speak" element={<SpeechSynthesis />} />
+			<Route path="/say" element={<SpeechRecognitions />} />
 		</Routes>
 	</div>
 );
