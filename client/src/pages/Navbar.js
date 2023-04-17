@@ -5,3 +5,4 @@ export default function Navbar() {
     <div><p>Navbar</p></div>
   );
 }
+// Added comment in here
