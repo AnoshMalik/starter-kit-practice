@@ -4,8 +4,9 @@ function Logo() {
   return (
     <div>
       <p>this my logo</p>
-      <img src=""/>
+      {/* <img src=""/> */}
     </div>
+   
   );
 }
 
