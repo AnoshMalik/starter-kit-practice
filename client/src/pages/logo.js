@@ -6,7 +6,6 @@ function Logo() {
       <p>this my logo</p>
       {/* <img src=""/> */}
     </div>
-   
   );
 }
 
