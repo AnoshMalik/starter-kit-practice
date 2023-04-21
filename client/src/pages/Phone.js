@@ -9,5 +9,10 @@ function Phone() {
 
   );
 }
-
 export default Phone;
+    <div>Phone</div>
+    <p>this is paragraph </p>
+  )
+}
+
+export default Phone
