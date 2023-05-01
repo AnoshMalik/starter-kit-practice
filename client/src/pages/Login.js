@@ -1,49 +1,33 @@
-import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
-// import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import React, { useEffect } from "react";
 
-const Login= () => {
-	// const history = useHistory();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+function Login() {
+	const clientID = "868e844044fa721e33c4";
 
-	const handleLogin = async (event) => {
-		event.preventDefault();
-		try {
-			// const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-			history.push("/");
-		} catch (error) {
-			console.error(error);
-		}
-	};
+	useEffect(() => {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const codeParam = urlParams.get("code");
+		console.log(codeParam);
+	},[]);
+
+
+	function loginWithGithubFront() {
+		window.location.assign(
+			"https://github.com/login/oauth/authorize?client_id=" + clientID
+		);
+	}
+
+	function loginWithGithubBack() {
+		fetch("api/auth/github");
+	}
 
 	return (
 		<div>
-			<h1>Login Page</h1>
-			<form onSubmit={handleLogin}>
-				<label>
-					Email:
-					<input
-						type="email"
-						value={email}
-						onChange={(event) => setEmail(event.target.value)}
-					/>
-				</label>
-				<br />
-				<label>
-					Password:
-					<input
-						type="password"
-						value={password}
-						onChange={(event) => setPassword(event.target.value)}
-					/>
-				</label>
-				<br />
-				<button type="submit">Login</button>
-			</form>
+			<button onClick={loginWithGithubFront}>
+				Sign in with Github (FRONT)
+			</button>
+			<button onClick={loginWithGithubBack}>Sign in with Github (BACK)</button>
 		</div>
 	);
-};
-
+}
 export default Login;
