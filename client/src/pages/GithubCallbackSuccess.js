@@ -19,13 +19,21 @@ function GithubCallack() {
     }) ;
 
 
+    const SignOut = () => {
+        fetch("/api/logout");
+    };
+
     return (
 			<div>
-				Successfully Logged in!
-            <img src={imageSource} style={{ width: "100px", height: "100px" }} alt="my profile"></img>
+				<p> Successfully Logged in!</p>
+				<img
+					src={imageSource}
+					style={{ width: "100px", height: "100px" }}
+					alt="my profile"
+				></img>
 				<p>{userName}</p>
-            <p>{email}</p>
-            <button >Go get</button>
+				<p>{email}</p>
+				<button onClick={SignOut}> Sign Out</button>
 			</div>
 		);
 }

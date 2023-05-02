@@ -19,7 +19,13 @@ const app = express();
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
-app.use(cors({ origin: "*" }));
+app.use(
+	cors({
+		origin: "*",
+		credentials: true,
+		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+	})
+);
 app.use(
 	cookieSession({
 		name: "github-auth-session",
