@@ -31,14 +31,14 @@ router.get(
 		req.session.username = req.user.username;
 		req.session.email = req.user.email;
 		req.session.profilePicture = req.user.profilePicture;
-		res.redirect("/api/success");
+		res.redirect("/success");
 	}
 );
 
 // GITHUB
 
 router.get("/success", (req, res) => {
-	res.json({ msg: req.session.email , profile: req.session.profilePicture , username: req.session.username });
+	res.json({ msg: req.session.email , profile: req.session.profilePicture , username: req.session.username, email: req.session.email });
 });
 
 router.get("/error", (req, res) =>
