@@ -5,40 +5,45 @@ const router = Router();
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
 
-
-
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
 });
 
-
 // GITHUB
-router.get("/auth/github", passport.authenticate("github", { scope: ["user:email"] }), function (req, res) {
-	req.session.email = req.email;
-	res.set("Access-Control-Allow-Origin", "*");
-
-});
+router.get(
+	"/auth/github",
+	passport.authenticate("github", { scope: ["profile"] }),
+	function (req, res) {
+		res.set("Access-Control-Allow-Origin", "*");
+	}
+);
 router.get(
 	"/auth/github/callback",
 	passport.authenticate("github", {
-		successRedirect: "/api/success",
+		// successRedirect: "/api/success",
 		failureRedirect: "/error",
 		session: false,
+		// eslint-disable-next-line no-unused-vars
+	}),
 	// eslint-disable-next-line no-unused-vars
-	}),function (req, res) {
-	req.session.email = req.email;
-});
+	function (req, res) {
+		req.session.username = req.user.username;
+		req.session.email = req.user.email;
+		req.session.profilePicture = req.user.profilePicture;
+		res.redirect("/api/success");
+	}
+);
 
 // GITHUB
 
-
 router.get("/success", (req, res) => {
-	res.json({ msg : req.session.count });
+	res.json({ msg: req.session.email , profile: req.session.profilePicture , username: req.session.username });
 });
 
-
-router.get("/error", (req, res) => res.json({ success: false, msg: "Login Error" }));
+router.get("/error", (req, res) =>
+	res.json({ success: false, msg: "Login Error" })
+);
 
 passport.use(
 	new GitHubStrategy(
@@ -49,7 +54,10 @@ passport.use(
 		},
 		function (accessToken, refreshToken, profile, done) {
 			// User.findOrCreate({ githubId: profile.id }, function (err, user) {
-			return done(null, profile);
+			const email = profile.emails[0].value;
+			const profilePicture = profile.photos[0].value;
+			const username = profile.username;
+			return done(null, { email, profilePicture, username } );
 			// });
 		}
 	)
@@ -79,6 +87,5 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
 	done(null, user);
 });
-
 
 export default router;
