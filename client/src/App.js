@@ -21,8 +21,8 @@ const App = () => (
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/hello" element={<Helloo />} />
 			<Route path="/login" element={<Login />} />
-			<Route path="/loginsuccess" element={<GithubCallbackSuccess />} />
-			<Route path="/loginfail" element={<GithubCallbackFail />} />
+			<Route path="/success" element={<GithubCallbackSuccess />} />
+			<Route path="/error" element={<GithubCallbackFail />} />
 
 			<Route path="/phonenumber" element={<PhoneNumber />} />
 			<Route path="/sidebar" element={<Sidebar />} />

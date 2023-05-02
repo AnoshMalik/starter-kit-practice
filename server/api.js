@@ -13,26 +13,32 @@ router.get("/", (_, res) => {
 });
 
 
+// GITHUB
+router.get("/auth/github", passport.authenticate("github", { scope: ["user:email"] }), function (req, res) {
+	req.session.email = req.email;
+	res.set("Access-Control-Allow-Origin", "*");
 
-router.get("/auth/github", passport.authenticate("github", { scope: ["user:email"] }));
-
+});
 router.get(
 	"/auth/github/callback",
 	passport.authenticate("github", {
-		failureRedirect: "/auth/error",
-	}),
-	function (req, res) {
-		// Successful authentication, redirect home.
-		res.redirect("/success");
-	}
-);
+		successRedirect: "/api/success",
+		failureRedirect: "/error",
+		session: false,
+	// eslint-disable-next-line no-unused-vars
+	}),function (req, res) {
+	req.session.email = req.email;
+});
+
+// GITHUB
+
 
 router.get("/success", (req, res) => {
-	res.json({ msg : "Success" });
+	res.json({ msg : req.session.count });
 });
 
 
-router.get("/auth/error", (req, res) => res.json({ msg: "Unknown Error" }));
+router.get("/error", (req, res) => res.json({ success: false, msg: "Login Error" }));
 
 passport.use(
 	new GitHubStrategy(
@@ -49,8 +55,26 @@ passport.use(
 	)
 );
 
+// SESSION
+router.get("/session/stats", (request, response) => {
+	const { count, userId } = request.session;
+	response.json({ count: count, userId: userId });
+});
+
+router.get("/session/login", (request, response) => {
+	request.session.count = 0;
+	request.session.userId = "arya123";
+	response.json({ message: "Hi there" });
+});
+
+router.get("/session/save", (request, response) => {
+	request.session.count++;
+	response.json({ message: "Ok saved!" });
+});
+// ^SESSION
+
 passport.serializeUser(function (user, done) {
-	done(null, user);
+	done(null, user._id);
 });
 passport.deserializeUser(function (user, done) {
 	done(null, user);

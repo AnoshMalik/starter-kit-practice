@@ -1,6 +1,5 @@
 import express from "express";
 const passport = require("passport");
-// const GitHubStrategy = require("passport-github2").Strategy;
 import cookieSession from "cookie-session";
 import cors from "cors";
 import apiRouter from "./api";
@@ -21,6 +20,20 @@ app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
 app.use(cors({ origin: "*" }));
+app.use(
+	cookieSession({
+		name: "github-auth-session",
+		keys: ["key1", "key2"],
+		maxAge: 1 * 60 * 60 * 1000,
+	})
+);
+
+app.use((req, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	next();
+});
 
 if (config.production) {
 	app.enable("trust proxy");
@@ -35,12 +48,7 @@ app.use(logErrors());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-	cookieSession({
-		name: "github-auth-session",
-		keys: ["key1", "key2"],
-	})
-);
+
 
 
 
