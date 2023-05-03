@@ -12,7 +12,7 @@ function createDatabaseUrl() {
 		return process.env.DATABASE_URL;
 	}
 	const host = process.env.DB_HOST ?? "localhost";
-	const name = process.env.DB_NAME ?? "cyf_hotels";
+	const name = process.env.DB_NAME ?? "codeyourfuture";
 	const password = process.env.DB_PASS ?? process.env.DB_PASSWORD ?? "cyf123";
 	const port = process.env.DB_PORT ?? "5432";
 	const username =

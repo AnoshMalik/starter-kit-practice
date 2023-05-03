@@ -29,7 +29,7 @@ app.use(
 app.use(
 	cookieSession({
 		name: "github-auth-session",
-		keys: ["key1", "key2"],
+		keys: ["key1"],
 		maxAge: 1 * 60 * 60 * 1000,
 	})
 );

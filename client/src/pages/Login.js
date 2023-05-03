@@ -22,7 +22,7 @@ function Login() {
 		// 	.then((response) => response.json())
 		// 	.then((data) => setData(data))
 		// 	.catch((error) => console.log(error));
-		window.open("/api/auth/github");
+		window.location.href = "/api/auth/github";
 	};
 
 	const loginWithGoogleBack = async () => {
@@ -30,7 +30,7 @@ function Login() {
 		// 	.then((response) => response.json())
 		// 	.then((data) => setData(data))
 		// 	.catch((error) => console.log(error));
-		window.open("/api/auth/google");
+		window.location.href = "/api/auth/google";
 	};
 
 	return (

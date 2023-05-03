@@ -1,5 +1,6 @@
 import { Router } from "express";
 import logger from "./utils/logger";
+import db from "./db";
 
 const router = Router();
 const passport = require("passport");
@@ -12,20 +13,39 @@ router.get("/", (_, res) => {
 });
 
 // LOGOUT
+// eslint-disable-next-line no-unused-vars
 router.get("/logout", (req, res) => {
 	req.session = null;
+	// req.logOut();
+	// res.redirect("/login");
 
-	req.logOut();
-	res.redirect("/login");
+	res.status(204).send("");
+	// res.redirect("/login");
+
 	// eslint-disable-next-line no-console
-	console.log("-------> User Logged out");
+	// console.log("-------> User Logged out");
 });
+
+router.post("/logout", function (req, res, next) {
+	req.logout(function (err) {
+		if (err) {
+			return next(err);
+		}
+		res.redirect("/");
+	});
+
+// 	// eslint-disable-next-line no-console
+// 	console.log("logout called");
+});
+
 
 // GITHUB
 router.get(
 	"/auth/github",
 	passport.authenticate("github", { scope: ["profile"] }),
 	function (req, res) {
+		db.query( );
+		// SELECT xyx FROM !"£"
 		res.set("Access-Control-Allow-Origin", "*");
 	}
 );
@@ -35,9 +55,7 @@ router.get(
 		// successRedirect: "/api/success",
 		failureRedirect: "/error",
 		session: false,
-		// eslint-disable-next-line no-unused-vars
 	}),
-	// eslint-disable-next-line no-unused-vars
 	function (req, res) {
 		req.session.username = req.user.username;
 		req.session.email = req.user.email;
@@ -82,13 +100,17 @@ passport.use(
 // GOOGLE
 router.get(
 	"/auth/google",
-	passport.authenticate("google", { scope: ["profile"] })
+	passport.authenticate("google", { scope: ["profile"] }),
+	function (req, res) {
+		res.set("Access-Control-Allow-Origin", "*");
+	}
 );
 
 router.get(
 	"/auth/google/callback",
 	passport.authenticate("google", {
 		failureRedirect: "/error",
+		// successRedirect: "/success",
 		session: false,
 	}),
 	function (req, res) {
@@ -96,7 +118,7 @@ router.get(
 		req.session.username = req.user.username;
 		req.session.email = req.user.email;
 		req.session.profilePicture = req.user.profilePicture;
-		res.redirect("/success");
+		res.redirect("http://localhost:3000/success");
 	}
 );
 

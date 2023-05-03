@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function GithubCallack() {
+    const navigate = useNavigate();
     const [imageSource, SetImageSource] = useState("");
     const [userName, SetUserName] = useState("");
     const [email, SetEmail] = useState("");
 
     useEffect (() => {
-
 
         fetch("/api/success")
             .then((response) => response.json())
@@ -16,11 +18,34 @@ function GithubCallack() {
                 SetEmail(data.email);
                 console.log(data.profile);
             }).catch((e) =>console.log(e));
-    }) ;
+    }, []) ;
+
+// FETCH API
+//     const SignOut = async ()  => {
+//         try {
+//             const response = await fetch("/api/logout");
+//             const data = await response.json();
+//             console.log(data);
+//     } catch (error) {
+//         console.error("Error:", error);
+// }
+//     };
 
 
-    const SignOut = () => {
-        fetch("/api/logout");
+// AXIOS
+    const SignOut = async () => {
+        try {
+            await axios.get("/api/logout");
+            // ({})
+            // 	method: "GET",
+            // 	url: "http://localhost:3000/api/logout",
+            // 	withCredentials: true,
+            // });
+            // console.log(response);
+            navigate("/login");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
