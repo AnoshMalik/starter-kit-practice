@@ -60,6 +60,7 @@ router.get(
 		req.session.username = req.user.username;
 		req.session.email = req.user.email;
 		req.session.profilePicture = req.user.profilePicture;
+		req.session.displayName = req.user.displayName;
 		res.redirect("/success");
 	}
 );
@@ -71,6 +72,7 @@ router.get("/success", (req, res) => {
 		profile: req.session.profilePicture,
 		username: req.session.username,
 		email: req.session.email,
+		displayName: req.session.displayName,
 	});
 });
 
@@ -91,7 +93,9 @@ passport.use(
 			const email = profile.emails[0].value;
 			const profilePicture = profile.photos[0].value;
 			const username = profile.username;
-			return done(null, { email, profilePicture, username });
+			const displayName = profile.displayName;
+
+			return done(null, { email, profilePicture, username, displayName });
 			// });
 		}
 	)
